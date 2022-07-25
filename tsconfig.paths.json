@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@screens/*": [
+        "src/screens/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@helpers/*": [
+        "src/helpers/*"
+      ],
+      "@App/*": [
+        "src/App/*"
+      ],
+      "@theme/*": [
+        "src/theme/*"
+      ],
+      "@interfaces/*": [
+        "src/interfaces/*"
+      ],
+      "@reducers/*": [
+        "src/reducers/*"
+      ],
+      "@sagas/*": [
+        "src/sagas/*"
+      ],
+      "@store/*": [
+        "src/store/*"
+      ]
+    },
+  }
+}
