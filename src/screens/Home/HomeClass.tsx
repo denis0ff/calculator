@@ -1,11 +1,14 @@
+import { DisplayClass } from '@components/Display';
+import { KeypadClass } from '@components/Keypad';
 import { Component } from 'react';
 
 class HomeClass extends Component {
   render() {
     return (
-      <div>
-        <div>Home CC</div>
-      </div>
+      <section>
+        <DisplayClass />
+        <KeypadClass />
+      </section>
     );
   }
 }
