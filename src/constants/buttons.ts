@@ -20,4 +20,5 @@ export const buttons = [
   { type: 'digit', char: ')' },
   { type: 'action', char: 'CE' },
   { type: 'operand', char: '%' },
+  { type: 'operand', char: '+/-' },
 ];

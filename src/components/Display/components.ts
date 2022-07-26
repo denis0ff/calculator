@@ -8,10 +8,15 @@ export const DisplayContainer = styled.article`
   align-items: flex-end;
   justify-content: center;
   height: 100px;
-  font-size: 32px;
   border-bottom: 2px solid;
 
-  & p:first-child {
+  & :first-child {
+    height: 16px;
     font-size: 16px;
+  }
+
+  & :last-child {
+    height: 32px;
+    font-size: 32px;
   }
 `;

@@ -1,12 +1,18 @@
 import { Component } from 'react';
 import { DisplayContainer } from './components';
 
-export default class DisplayClass extends Component {
+type Props = {
+  value: string;
+  expression: string;
+};
+
+export default class DisplayClass extends Component<Props> {
   render() {
+    const { expression, value } = this.props;
     return (
       <DisplayContainer>
-        <p>Expression</p>
-        <p>Value</p>
+        <p>{expression}</p>
+        <p>{value}</p>
       </DisplayContainer>
     );
   }
