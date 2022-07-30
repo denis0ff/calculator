@@ -1,6 +1,19 @@
 import { Calculator } from './calculator';
-import { Command, AddCommand, SubCommand, MulCommand, DivCommand, ResDivCommand } from './commands';
-import { calculateExpression } from './operations';
+import {
+  Command,
+  AddCommand,
+  SubCommand,
+  MulCommand,
+  DivCommand,
+  ResDivCommand,
+  getCommand,
+} from './commands';
+import {
+  calculateExpression,
+  negateValue,
+  addValueToExpression,
+  addDotToValue,
+} from './operations';
 
 export {
   Calculator,
@@ -11,4 +24,8 @@ export {
   DivCommand,
   ResDivCommand,
   calculateExpression,
+  getCommand,
+  negateValue,
+  addValueToExpression,
+  addDotToValue,
 };

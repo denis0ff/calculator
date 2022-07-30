@@ -63,3 +63,25 @@ export class ResDivCommand {
     return this.x % this.y;
   }
 }
+
+export const getCommand = (sign: string, [x, y]: string[]) => {
+  switch (sign) {
+    case '+': {
+      return new AddCommand(+x, +y);
+    }
+    case '-': {
+      return new SubCommand(+x, +y);
+    }
+    case '*': {
+      return new MulCommand(+x, +y);
+    }
+    case '/': {
+      return new DivCommand(+x, +y);
+    }
+    case '%': {
+      return new ResDivCommand(+x, +y);
+    }
+    default:
+      return null;
+  }
+};

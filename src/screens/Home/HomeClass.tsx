@@ -1,68 +1,39 @@
 import { DisplayClass } from '@components/Display';
 import { KeypadClass } from '@components/Keypad';
-import { calculateExpression, Calculator } from '@helpers/index';
-import { Actions } from '@interfaces/index';
+import { Calculator } from '@helpers/index';
+import { SetStateAction } from '@interfaces/index';
+import { mapDispatchToProps, mapStateToProps, State } from '@store/reducers/calculator';
 import { Component } from 'react';
+import { connect } from 'react-redux';
 
-type Props = null;
+interface Props extends State {
+  setState: (action: SetStateAction) => void;
+  setResult: (action: Calculator) => void;
+}
 
-type State = {
-  displayValue: string;
-  displayExpression: string;
-  isCalculated: boolean;
-};
-class HomeClass extends Component<Props, State> {
+class HomeClass extends Component<Props> {
   calculator: Calculator;
-  actions: Actions;
   constructor(props: Props) {
     super(props);
-    this.state = {
-      displayValue: '',
-      displayExpression: '',
-      isCalculated: false,
-    };
-
     this.calculator = new Calculator();
-
-    this.actions = Object.create(this, {
-      digit: { value: this.handleDigitClick.bind(this) },
-      operand: { value: this.handleOperandClick.bind(this) },
-    });
   }
 
-  handleDigitClick(value: string) {
-    const { isCalculated } = this.state;
-    if (isCalculated) this.setState({ displayValue: value, isCalculated: false });
-    else this.setState(({ displayValue }) => ({ displayValue: displayValue + value }));
-  }
-
-  handleOperandClick(value: string) {
-    if (value === '=')
-      this.setState(({ displayValue, displayExpression }) => ({
-        displayValue: calculateExpression(
-          `${displayExpression} ${displayValue}`.trim(),
-          this.calculator
-        ),
-        displayExpression: '',
-        isCalculated: true,
-      }));
-    else
-      this.setState(({ displayValue, displayExpression, isCalculated }) => ({
-        displayValue: '',
-        displayExpression: `${displayExpression} ${displayValue} ${value}`.trim(),
-        isCalculated: isCalculated ? false : true,
-      }));
-  }
+  handleKeypadClick = (action: SetStateAction) => {
+    action.type === 'result' ? this.props.setResult(this.calculator) : this.props.setState(action);
+  };
 
   render() {
-    const { displayValue, displayExpression } = this.state;
+    const { displayValue, displayExpression } = this.props;
+
     return (
       <section>
         <DisplayClass value={displayValue} expression={displayExpression} />
-        <KeypadClass actions={this.actions} />
+        <KeypadClass onKeyClick={this.handleKeypadClick} />
       </section>
     );
   }
 }
 
-export default HomeClass;
+export default connect(mapStateToProps, mapDispatchToProps)(HomeClass);
+
+// export default HomeClass;

@@ -1,23 +1,19 @@
 import { buttons } from '@constants/index';
-import { Actions } from '@interfaces/index';
+import { SetStateAction } from '@interfaces/index';
 import { Component } from 'react';
 import { KeypadButton, KeypadContainer } from './components';
 
 type Props = {
-  actions: Actions;
+  onKeyClick: (payload: SetStateAction) => void;
 };
 
 class KeypadClass extends Component<Props> {
-  handleClick = (key: string, char: string) => () => {
-    const { actions } = this.props;
-    actions[key](char);
-  };
-
   render() {
+    const { onKeyClick } = this.props;
     return (
       <KeypadContainer>
         {buttons.map(({ char, type }) => (
-          <KeypadButton key={char} onClick={this.handleClick(type, char)}>
+          <KeypadButton key={char} onClick={() => onKeyClick({ type, char })}>
             {char}
           </KeypadButton>
         ))}

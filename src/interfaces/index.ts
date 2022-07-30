@@ -1,5 +1,4 @@
-export type Actions = {
-  [x: string]: (y: string) => void;
-  digit: (item: string) => void;
-  operand: (item: string) => void;
+export type SetStateAction = {
+  type: string;
+  char: string;
 };
