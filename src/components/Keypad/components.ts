@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const KeypadContainer = styled.article`
-  height: 100%;
+  margin-top: 1em;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
   justify-items: center;
+  gap: 1em;
 `;
 
 export const KeypadButton = styled.button`

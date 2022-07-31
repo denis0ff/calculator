@@ -1,5 +1,5 @@
 export const buttons = [
-  { type: 'action', char: 'C' },
+  { type: 'clear_value', char: 'C' },
   { type: 'digit', char: '7' },
   { type: 'digit', char: '8' },
   { type: 'digit', char: '9' },
@@ -18,7 +18,7 @@ export const buttons = [
   { type: 'left_bracket', char: '(' },
   { type: 'digit', char: '0' },
   { type: 'right_bracket', char: ')' },
-  { type: 'action', char: 'CE' },
+  { type: 'clear_exp', char: 'CE' },
   { type: 'operand', char: '%' },
   { type: 'negate', char: '+/-' },
 ];

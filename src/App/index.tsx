@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Routes as AppRoutes } from '@constants/index';
+import { Routes as AppRoutes } from '@constants/.';
 
 import Loader from '@components/Loader';
 import Header from '@components/Header';

@@ -1,15 +1,12 @@
-import { DisplayClass } from '@components/Display';
-import { KeypadClass } from '@components/Keypad';
-import { Calculator } from '@helpers/index';
-import { SetStateAction } from '@interfaces/index';
-import { mapDispatchToProps, mapStateToProps, State } from '@store/reducers/calculator';
 import { Component } from 'react';
 import { connect } from 'react-redux';
-
-interface Props extends State {
-  setState: (action: SetStateAction) => void;
-  setResult: (action: Calculator) => void;
-}
+import { DisplayClass } from '@components/Display';
+import HistoryClass from '@components/History';
+import { KeypadClass } from '@components/Keypad';
+import { calculateExpression, Calculator, resolveBrackets } from '@helpers/.';
+import { SetStateAction, HomeClassProps as Props } from '@interfaces/.';
+import { mapDispatchToProps, mapStateToProps } from '@store/.';
+import { HomeContainer, HomeWrapper } from './components';
 
 class HomeClass extends Component<Props> {
   calculator: Calculator;
@@ -19,21 +16,30 @@ class HomeClass extends Component<Props> {
   }
 
   handleKeypadClick = (action: SetStateAction) => {
-    action.type === 'result' ? this.props.setResult(this.calculator) : this.props.setState(action);
+    const { displayValue, displayExpression, setResult, setState, addHistory } = this.props;
+    if (action.type !== 'result') setState(action);
+    else {
+      const withResolvedBrackets = resolveBrackets(`${displayExpression}${displayValue}`);
+      setResult(calculateExpression(withResolvedBrackets, this.calculator));
+      addHistory(withResolvedBrackets);
+    }
   };
 
+  handleClearHistory = () => this.props.clearHistory();
+
   render() {
-    const { displayValue, displayExpression } = this.props;
+    const { displayValue, displayExpression, history } = this.props;
 
     return (
-      <section>
-        <DisplayClass value={displayValue} expression={displayExpression} />
-        <KeypadClass onKeyClick={this.handleKeypadClick} />
-      </section>
+      <HomeContainer>
+        <HomeWrapper>
+          <DisplayClass value={displayValue} expression={displayExpression} />
+          <KeypadClass onKeyClick={this.handleKeypadClick} />
+        </HomeWrapper>
+        <HistoryClass history={history} clearHistory={this.handleClearHistory} />
+      </HomeContainer>
     );
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeClass);
-
-// export default HomeClass;

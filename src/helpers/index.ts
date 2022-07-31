@@ -13,6 +13,9 @@ import {
   negateValue,
   addValueToExpression,
   addDotToValue,
+  closeBracket,
+  openBracket,
+  resolveBrackets,
 } from './operations';
 
 export {
@@ -28,4 +31,7 @@ export {
   negateValue,
   addValueToExpression,
   addDotToValue,
+  closeBracket,
+  openBracket,
+  resolveBrackets,
 };

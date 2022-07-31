@@ -1,22 +1,14 @@
 import {
   addValueToExpression,
   addDotToValue,
-  calculateExpression,
-  Calculator,
   negateValue,
+  closeBracket,
+  openBracket,
 } from '@helpers/index';
-import { SetStateAction } from '@interfaces/index';
+import { CalculatorState, SetStateAction } from '@interfaces/.';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type State = {
-  displayValue: string;
-  displayExpression: string;
-  isCalculated: boolean;
-};
-
-type ClassComponentState = { calculator: State };
-
-const initialState: State = {
+const initialState: CalculatorState = {
   displayValue: '0',
   displayExpression: '',
   isCalculated: true,
@@ -44,12 +36,12 @@ export const calcSlice = createSlice({
           break;
         }
         case 'left_bracket': {
-          state.displayExpression = `${state.displayExpression}${char}`;
+          state.displayExpression = openBracket(state.displayExpression);
           state.isCalculated = true;
           break;
         }
         case 'right_bracket': {
-          state.displayExpression = `${state.displayExpression}${state.displayValue}${char}`;
+          state.displayExpression = closeBracket(state.displayExpression, state.displayValue);
           state.displayValue = '0';
           state.isCalculated = true;
           break;
@@ -63,15 +55,23 @@ export const calcSlice = createSlice({
           state.displayValue = negateValue(state.displayValue);
           break;
         }
+        case 'clear_value': {
+          state.displayValue = '0';
+          state.isCalculated = true;
+          break;
+        }
+        case 'clear_exp': {
+          state.displayValue = '0';
+          state.displayExpression = '';
+          state.isCalculated = true;
+          break;
+        }
         default:
           return state;
       }
     },
-    setResult(state, { payload }: PayloadAction<Calculator>) {
-      state.displayValue = calculateExpression(
-        `${state.displayExpression}${state.displayValue}`,
-        payload
-      );
+    setResult(state, { payload }: PayloadAction<string>) {
+      state.displayValue = payload;
       state.displayExpression = '';
       state.isCalculated = true;
     },
@@ -79,9 +79,5 @@ export const calcSlice = createSlice({
 });
 
 export const { setState, setResult } = calcSlice.actions;
-
-export const mapStateToProps = ({ calculator }: ClassComponentState) => ({ ...calculator });
-
-export const mapDispatchToProps = { setState, setResult };
 
 export default calcSlice.reducer;
