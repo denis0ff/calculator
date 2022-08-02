@@ -11,8 +11,8 @@ export default class DisplayClass extends Component<Props> {
     const { expression, value } = this.props;
     return (
       <DisplayContainer>
-        <p>{expression}</p>
-        <p>{value}</p>
+        <p data-test-id="display-expression">{expression}</p>
+        <p data-test-id="display-value">{value}</p>
       </DisplayContainer>
     );
   }

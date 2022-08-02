@@ -21,11 +21,17 @@ class Settings extends Component<Props> {
     return (
       <SettingsWrapper>
         <h2>Settings</h2>
-        <Select onChange={this.handleOptionClick} defaultValue={currentTheme}>
+        <Select
+          data-test-id="select-theme"
+          onChange={this.handleOptionClick}
+          defaultValue={currentTheme}
+        >
           <option value="dark">Dark theme</option>
           <option value="light">Light theme</option>
         </Select>
-        <Button onClick={this.handleClearClick}>Clear All History</Button>
+        <Button data-test-id="button-clear-all" onClick={this.handleClearClick}>
+          Clear All History
+        </Button>
       </SettingsWrapper>
     );
   }

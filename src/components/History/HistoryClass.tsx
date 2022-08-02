@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { HistoryContainer, HistoryTitle, HistoryList, HistoryButton } from './components';
+import { HistoryTitle, HistoryList, HistoryButton } from './components';
 
 type Props = {
   history: string[];
@@ -10,7 +10,7 @@ class HistoryClass extends Component<Props> {
   render() {
     const { history, clearHistory } = this.props;
     return (
-      <HistoryContainer>
+      <>
         <HistoryTitle>History</HistoryTitle>
         <HistoryButton onClick={clearHistory}>Clear</HistoryButton>
         <HistoryList>
@@ -18,7 +18,7 @@ class HistoryClass extends Component<Props> {
             <li key={item + idx}>{item}</li>
           ))}
         </HistoryList>
-      </HistoryContainer>
+      </>
     );
   }
 }

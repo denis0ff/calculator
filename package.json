@@ -27,7 +27,9 @@
     "build": "craco build",
     "eject": "craco eject",
     "eslint:test": "eslint src --ext .js,.jsx",
-    "eslint:fix": "eslint --fix"
+    "eslint:fix": "eslint --fix",
+    "cypress": "craco start cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [

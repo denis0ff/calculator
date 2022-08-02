@@ -4,8 +4,9 @@ import { DisplayClass } from '@components/Display';
 import HistoryClass from '@components/History';
 import { KeypadClass } from '@components/Keypad';
 import { SetStateAction, HomeClassProps as Props, ClassComponentState } from '@interfaces/.';
-import { HomeContainer, HomeWrapper } from './components';
+import { HistoryContainer, HomeContainer, HomeWrapper } from './components';
 import { setState, clearHistory } from '@store/.';
+import ErrorBoundary from '@components/ErrorBoundary';
 
 class HomeClass extends Component<Props> {
   handleKeypadClick = (action: SetStateAction) => {
@@ -20,10 +21,18 @@ class HomeClass extends Component<Props> {
     return (
       <HomeContainer>
         <HomeWrapper>
-          <DisplayClass value={displayValue} expression={displayExpression} />
-          <KeypadClass onKeyClick={this.handleKeypadClick} />
+          <ErrorBoundary fallback="Something wrong with display. Try to reload the page, please">
+            <DisplayClass value={displayValue} expression={displayExpression} />
+          </ErrorBoundary>
+          <ErrorBoundary fallback="Something wrong with keypad. Try to reload the page, please">
+            <KeypadClass onKeyClick={this.handleKeypadClick} />
+          </ErrorBoundary>
         </HomeWrapper>
-        <HistoryClass history={history} clearHistory={this.handleClearHistory} />
+        <HistoryContainer data-test-id="history">
+          <ErrorBoundary fallback="Something wrong with history. Try to reload the page, please">
+            <HistoryClass history={history} clearHistory={this.handleClearHistory} />
+          </ErrorBoundary>
+        </HistoryContainer>
       </HomeContainer>
     );
   }

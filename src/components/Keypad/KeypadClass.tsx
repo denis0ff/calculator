@@ -1,5 +1,5 @@
-import { buttons } from '@constants/index';
-import { SetStateAction } from '@interfaces/index';
+import { buttons } from '@constants/.';
+import { SetStateAction } from '@interfaces/.';
 import { Component } from 'react';
 import { KeypadButton, KeypadContainer } from './components';
 
@@ -13,7 +13,11 @@ class KeypadClass extends Component<Props> {
     return (
       <KeypadContainer>
         {buttons.map(({ char, type }) => (
-          <KeypadButton key={char} onClick={() => onKeyClick({ type, char })}>
+          <KeypadButton
+            key={char}
+            data-test-id={`button-${char}`}
+            onClick={() => onKeyClick({ type, char })}
+          >
             {char}
           </KeypadButton>
         ))}

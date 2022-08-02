@@ -30,6 +30,10 @@ export const calcSlice = createSlice({
           break;
         }
         case 'operand': {
+          if (/error/i.test(state.displayValue)) {
+            state.displayValue = '0';
+            break;
+          }
           state.displayExpression = `${state.displayExpression}${addValueToExpression(
             state.displayValue,
             state.displayExpression
@@ -55,6 +59,10 @@ export const calcSlice = createSlice({
           break;
         }
         case 'negate': {
+          if (/error/i.test(state.displayValue)) {
+            state.displayValue = '0';
+            break;
+          }
           state.displayValue = negateValue(state.displayValue);
           break;
         }
@@ -73,8 +81,11 @@ export const calcSlice = createSlice({
           const expression = state.displayExpression
             ? resolveBrackets(`${state.displayExpression}${state.displayValue}`)
             : resolveBrackets(`${state.displayValue} + ${state.displayValue}`);
+          const result = calculateExpression(expression);
+          if (result === 'Infinity') state.displayValue = 'Error. Memory overflow';
+          else if (result === 'NaN') state.displayValue = 'Error. Result cannot be determined';
+          else state.displayValue = result;
           state.history.push(expression);
-          state.displayValue = calculateExpression(expression);
           state.displayExpression = '';
           state.isCalculated = true;
           break;
