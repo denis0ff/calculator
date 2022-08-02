@@ -8,6 +8,8 @@ export const HeaderContainer = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 80px;
+  background: ${({ theme }) => theme.config.headerBg};
+  color: ${({ theme }) => theme.config.headerColor};
 `;
 
 export const HeaderLinkList = styled.ul`
@@ -19,6 +21,6 @@ export const HeaderLink = styled(NavLink)`
   padding: 5px 0;
   font-size: 24px;
   &.active {
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid ${({ theme }) => theme.config.headerColor};
   }
 `;

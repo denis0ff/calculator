@@ -7,20 +7,20 @@ export type CalculatorState = {
   displayValue: string;
   displayExpression: string;
   isCalculated: boolean;
-};
-
-export type HistoryState = {
   history: string[];
 };
 
-export interface HomeClassProps extends CalculatorState, HistoryState {
+export interface HomeClassProps extends CalculatorState {
   setState: (action: SetStateAction) => void;
-  setResult: (action: string) => void;
-  addHistory: (action: string) => void;
   clearHistory: () => void;
 }
 
 export type ClassComponentState = {
   calculator: CalculatorState;
-  history: HistoryState;
+};
+
+export type ThemeContextType = {
+  theme: { [x: string]: string };
+  currentTheme: string;
+  dispatch: (theme: string) => void;
 };

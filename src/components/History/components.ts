@@ -1,24 +1,26 @@
 import styled from 'styled-components';
 
 export const HistoryContainer = styled.aside`
-  padding: 1em;
+  padding: 0.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   width: 35%;
-  font-size: 26px;
-  border-left: 2px solid #000;
-  border-right: 2px solid #000;
+  font-size: 20px;
+  border-left: 2px solid ${({ theme }) => theme.config.border};
 `;
 
 export const HistoryList = styled.ul`
-  width: 100%;
   margin-top: 10px;
+  width: 100%;
+  font-size: 0.9em;
   overflow: auto;
-
   & > li {
-    font-weight: 600;
+    padding: 5px 0;
+    margin-right: 5px;
+    border-bottom: 1px solid ${({ theme }) => theme.config.border};
+    word-break: break-word;
   }
 `;
 
@@ -28,13 +30,15 @@ export const HistoryTitle = styled.h3`
 
 export const HistoryButton = styled.button`
   width: 100%;
-  border: 1px solid #625858;
-  background: #fdd1d1;
-  border-radius: 10px;
+  padding: 0.2em;
+  border: 1px solid ${({ theme }) => theme.config.border};
+  background: ${({ theme }) => theme.config.primary};
+  border-radius: 5px;
   font-size: 0.7em;
+  color: inherit;
   cursor: pointer;
   &:hover {
-    border-color: #000;
-    background-color: #eee;
+    border-color: ${({ theme }) => theme.config.primary};
+    background-color: ${({ theme }) => theme.config.secondary};
   }
 `;

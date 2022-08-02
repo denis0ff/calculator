@@ -1,4 +1,4 @@
 import GlobalStyles from './globalStyles';
-import theme from './theme';
+import { lightTheme, darkTheme } from './theme';
 
-export { theme, GlobalStyles };
+export { lightTheme, darkTheme, GlobalStyles };

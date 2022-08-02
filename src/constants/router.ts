@@ -11,9 +11,9 @@ export const Routes = [
     element: () => lazy(() => import('@screens/Home/HomeClass')),
     label: 'Home(CC)',
   },
-  /* {
+  {
     path: 'settings',
-    element: lazy(() => import('@CC_screens/Home')),
-    label: 'Home(CC)',
-  }, */
+    element: () => lazy(() => import('@screens/Settings')),
+    label: 'Settings',
+  },
 ];

@@ -3,26 +3,13 @@ import { connect } from 'react-redux';
 import { DisplayClass } from '@components/Display';
 import HistoryClass from '@components/History';
 import { KeypadClass } from '@components/Keypad';
-import { calculateExpression, Calculator, resolveBrackets } from '@helpers/.';
-import { SetStateAction, HomeClassProps as Props } from '@interfaces/.';
-import { mapDispatchToProps, mapStateToProps } from '@store/.';
+import { SetStateAction, HomeClassProps as Props, ClassComponentState } from '@interfaces/.';
 import { HomeContainer, HomeWrapper } from './components';
+import { setState, clearHistory } from '@store/.';
 
 class HomeClass extends Component<Props> {
-  calculator: Calculator;
-  constructor(props: Props) {
-    super(props);
-    this.calculator = new Calculator();
-  }
-
   handleKeypadClick = (action: SetStateAction) => {
-    const { displayValue, displayExpression, setResult, setState, addHistory } = this.props;
-    if (action.type !== 'result') setState(action);
-    else {
-      const withResolvedBrackets = resolveBrackets(`${displayExpression}${displayValue}`);
-      setResult(calculateExpression(withResolvedBrackets, this.calculator));
-      addHistory(withResolvedBrackets);
-    }
+    this.props.setState(action);
   };
 
   handleClearHistory = () => this.props.clearHistory();
@@ -41,5 +28,11 @@ class HomeClass extends Component<Props> {
     );
   }
 }
+
+export const mapStateToProps = ({ calculator }: ClassComponentState) => ({
+  ...calculator,
+});
+
+export const mapDispatchToProps = { setState, clearHistory };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeClass);

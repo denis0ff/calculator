@@ -2,11 +2,12 @@ import { Calculator, getCommand } from '.';
 
 const findOperandIndex = (signs: string[]) => {
   const idx = signs.findIndex((sign) => /[/*%]/.test(sign)); //high priority operands
-  return idx === -1 ? signs.findIndex((sign) => /[+-]/.test(sign)) : idx; //low priority operands
+  return idx === -1 ? signs.findIndex((sign, i) => i !== 0 && /[+-]/.test(sign)) : idx; //low priority operands
 };
 
-const calculateSimpleExpression = (expression: string, calculator: Calculator) => {
+const calculateSimpleExpression = (expression: string) => {
   const signs = expression.split(' ');
+  const calculator = new Calculator();
   while (signs.length !== 1) {
     const idx = findOperandIndex(signs);
     const command = getCommand(signs[idx], [signs[idx - 1], signs[idx + 1]]);
@@ -22,11 +23,7 @@ const countBrackets = (expression: string) => {
   return [left, right];
 };
 
-const removeExcess = (expression: string) => {
-  const excessRegex = /([^\)]+)$/;
-  const [excess] = expression.match(excessRegex) || [];
-  return /[+-/*%]/.test(excess) ? expression : expression.replace(excessRegex, '');
-};
+const removeExcess = (expression: string) => expression.replace(/(\)\d)$/, ')');
 
 export const resolveBrackets = (expression: string) => {
   const [left, right] = countBrackets(expression);
@@ -51,16 +48,14 @@ export const openBracket = (expression: string) => {
 export const closeBracket = (expression: string, value: string) => {
   const [left, right] = countBrackets(expression);
   if (left <= right) return expression;
-  if (/[\( ]/.test(expression.slice(-1))) return `${expression}${value})`;
+  if (/[\( ]/.test(expression.slice(-1)))
+    return `${expression}${addValueToExpression(value, expression)})`;
   return `${expression})`;
 };
 
-export const calculateExpression = function calculate(
-  expression: string,
-  calculator: Calculator
-): string {
+export const calculateExpression = function calculate(expression: string): string {
   if (!/[\(\)]/.test(expression)) {
-    return calculateSimpleExpression(expression, calculator);
+    return calculateSimpleExpression(expression);
   }
   const signs = expression.split('');
   let start = null;
@@ -69,10 +64,10 @@ export const calculateExpression = function calculate(
       start = i;
     }
     if (signs[i] === ')' && start !== null) {
-      const piece = calculate(signs.slice(start + 1, i).join(''), calculator);
+      const piece = calculate(signs.slice(start + 1, i).join(''));
       signs.splice(start, i - start + 1, piece);
       i = -1;
     }
   }
-  return calculate(signs.join(''), calculator);
+  return calculate(signs.join(''));
 };

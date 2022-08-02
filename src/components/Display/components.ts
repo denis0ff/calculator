@@ -8,7 +8,7 @@ export const DisplayContainer = styled.article`
   align-items: flex-end;
   justify-content: center;
   height: 100px;
-  border-bottom: 2px solid;
+  border-bottom: 2px solid ${({ theme }) => theme.config.border};
 
   & :first-child {
     height: 16px;

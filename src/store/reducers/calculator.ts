@@ -4,6 +4,8 @@ import {
   negateValue,
   closeBracket,
   openBracket,
+  calculateExpression,
+  resolveBrackets,
 } from '@helpers/index';
 import { CalculatorState, SetStateAction } from '@interfaces/.';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
@@ -12,6 +14,7 @@ const initialState: CalculatorState = {
   displayValue: '0',
   displayExpression: '',
   isCalculated: true,
+  history: [],
 };
 
 export const calcSlice = createSlice({
@@ -66,18 +69,32 @@ export const calcSlice = createSlice({
           state.isCalculated = true;
           break;
         }
+        case 'result': {
+          const expression = state.displayExpression
+            ? resolveBrackets(`${state.displayExpression}${state.displayValue}`)
+            : resolveBrackets(`${state.displayValue} + ${state.displayValue}`);
+          state.history.push(expression);
+          state.displayValue = calculateExpression(expression);
+          state.displayExpression = '';
+          state.isCalculated = true;
+          break;
+        }
         default:
           return state;
       }
     },
-    setResult(state, { payload }: PayloadAction<string>) {
-      state.displayValue = payload;
+    clearHistory(state) {
+      state.history = [];
+    },
+    clearAll(state) {
+      state.history = [];
+      state.displayValue = '0';
       state.displayExpression = '';
       state.isCalculated = true;
     },
   },
 });
 
-export const { setState, setResult } = calcSlice.actions;
+export const { setState, clearHistory, clearAll } = calcSlice.actions;
 
 export default calcSlice.reducer;
