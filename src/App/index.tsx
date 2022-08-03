@@ -23,7 +23,7 @@ export default () => {
       <Header />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/" element={<Navigate to={AppRoutes[0].path} replace />} />
+          <Route path="/*" element={<Navigate to={AppRoutes[0].path} replace />} />
           {AppRoutes.map(({ path, element }) => {
             const LazyElement = element();
             return <Route key={path} path={path} element={<LazyElement />} />;

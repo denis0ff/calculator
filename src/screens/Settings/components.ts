@@ -35,11 +35,4 @@ export const Button = styled.button`
   height: 40px;
   border-radius: 0.5em;
   font-size: 16px;
-  border: 1px solid ${({ theme }) => theme.config.border};
-  background: ${({ theme }) => theme.config.primary};
-  color: inherit;
-  cursor: pointer;
-  &:hover {
-    background-color: ${({ theme }) => theme.config.secondary};
-  }
 `;

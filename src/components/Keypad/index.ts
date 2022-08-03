@@ -1,3 +1,4 @@
 import KeypadClass from './KeypadClass';
+import Keypad from './Keypad';
 
-export { KeypadClass };
+export { KeypadClass, Keypad };

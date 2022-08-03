@@ -71,3 +71,5 @@ export const calculateExpression = function calculate(expression: string): strin
   }
   return calculate(signs.join(''));
 };
+
+export const validateValue = (value: string) => value.replace(/^0+/, '0');

@@ -67,4 +67,14 @@ describe('Calculations', () => {
     cy.get("[data-test-id='button-=']").click();
     cy.get("[data-test-id='display-value']").should('have.text', '32');
   });
+
+  it('should add dot number without 0 after calculation', () => {
+    cy.get("[data-test-id='button-=']").click();
+    cy.get("[data-test-id='display-value']").should('have.text', '0');
+    cy.get("[data-test-id='button-.']").click();
+    cy.get("[data-test-id='button-5']").click();
+    cy.get("[data-test-id='display-value']").should('have.text', '.5');
+    cy.get("[data-test-id='button-=']").click();
+    cy.get("[data-test-id='display-value']").should('have.text', '1');
+  });
 });

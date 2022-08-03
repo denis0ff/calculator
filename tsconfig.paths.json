@@ -26,11 +26,11 @@
       "@reducers/*": [
         "src/reducers/*"
       ],
-      "@sagas/*": [
-        "src/sagas/*"
-      ],
       "@store/*": [
         "src/store/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
       ]
     },
   }

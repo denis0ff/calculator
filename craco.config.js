@@ -11,8 +11,8 @@ module.exports = {
       '@theme': path.resolve(__dirname, 'src/theme/'),
       '@interfaces': path.resolve(__dirname, 'src/interfaces/'),
       '@reducers': path.resolve(__dirname, 'src/reducers/'),
-      '@sagas': path.resolve(__dirname, 'src/sagas/'),
       '@store': path.resolve(__dirname, 'src/store/'),
+      '@hooks': path.resolve(__dirname, 'src/hooks/'),
     },
   },
 };

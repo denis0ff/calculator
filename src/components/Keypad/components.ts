@@ -14,12 +14,4 @@ export const KeypadButton = styled.button`
   height: 80px;
   font-size: 32px;
   border-radius: 24px;
-  border: 1px solid ${({ theme }) => theme.config.border};
-  cursor: pointer;
-  background: ${({ theme }) => theme.config.primary};
-  color: inherit;
-  &:hover {
-    border-color: ${({ theme }) => theme.config.primary};
-    background-color: ${({ theme }) => theme.config.secondary};
-  }
 `;

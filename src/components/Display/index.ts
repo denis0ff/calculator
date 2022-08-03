@@ -1,3 +1,4 @@
 import DisplayClass from './DisplayClass';
+import Display from './Display';
 
-export { DisplayClass };
+export { DisplayClass, Display };

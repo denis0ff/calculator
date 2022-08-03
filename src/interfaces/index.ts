@@ -1,4 +1,4 @@
-export type SetStateAction = {
+export type SetCalculatorPayload = {
   type: string;
   char: string;
 };
@@ -6,12 +6,13 @@ export type SetStateAction = {
 export type CalculatorState = {
   displayValue: string;
   displayExpression: string;
+  isUpdatedExpression: boolean;
   isCalculated: boolean;
   history: string[];
 };
 
 export interface HomeClassProps extends CalculatorState {
-  setState: (action: SetStateAction) => void;
+  setCalculator: (action: SetCalculatorPayload) => void;
   clearHistory: () => void;
 }
 

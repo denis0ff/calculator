@@ -1,6 +1,6 @@
 describe('Settings', () => {
   beforeEach(() => {
-    cy.visit('/settings');
+    cy.visit('/calculator/settings');
   });
 
   it('should render settings controls', () => {
@@ -25,7 +25,7 @@ describe('Settings', () => {
     cy.get("[data-test-id='display-expression']").should('have.text', '8 + ');
     cy.get("[data-test-id='display-value']").should('have.text', '5');
     cy.get('[data-test-id=history]').children('ul').children('li').should('have.length', times);
-    cy.visit('/settings');
+    cy.visit('/calculator/settings');
     cy.get('[data-test-id=button-clear-all]').click();
     cy.visit('/');
     cy.get("[data-test-id='display-expression']").should('be.empty');

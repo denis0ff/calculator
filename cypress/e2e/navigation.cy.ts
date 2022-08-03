@@ -11,17 +11,17 @@ describe('Navigation', () => {
   it('should work navigation', () => {
     cy.get('a').contains('Home(FC)').click();
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/home-fc');
+      expect(loc.pathname).to.eq('/calculator/home-fc');
     });
     cy.get('a').contains('Settings').click();
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/settings');
+      expect(loc.pathname).to.eq('/calculator/settings');
     });
   });
 
   it('should navigate to default page', () => {
     cy.location().should((loc) => {
-      expect(loc.pathname).to.eq('/home-cc');
+      expect(loc.pathname).to.eq('/calculator/home-cc');
     });
   });
 });

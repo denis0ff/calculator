@@ -44,6 +44,17 @@ export default createGlobalStyle<ThemeParams>`
     color: inherit;
   }
 
+  button {
+    border: 1px solid ${({ theme }) => theme.config.border};
+    background: ${({ theme }) => theme.config.primary};
+    color: inherit;
+    cursor: pointer;
+      &:hover {
+      border-color: ${({ theme }) => theme.config.primary};
+      background-color: ${({ theme }) => theme.config.secondary};
+    }
+  }
+
   body {
     background-size: cover;
     background-position: center;

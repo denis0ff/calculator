@@ -13,13 +13,24 @@ export const HomeWrapper = styled.div`
   height: 100%;
 `;
 
-export const HistoryContainer = styled.aside`
-  padding: 0.5em;
+export const HistoryContainer = styled.aside<{ showHistory: boolean }>`
+  position: relative;
+  padding: ${({ showHistory }) => (showHistory ? '0.5em' : '0')};
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  width: 35%;
+  width: ${({ showHistory }) => (showHistory ? '35%' : '0')};
   font-size: 20px;
   border-left: 2px solid ${({ theme }) => theme.config.border};
+`;
+
+export const HistoryButton = styled.button`
+  position: absolute;
+  left: -6px;
+  font-size: 34px;
+  width: 10px;
+  height: 50px;
+  border-radius: 5px;
+  top: calc(50% - 50px);
 `;

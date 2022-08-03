@@ -1,11 +1,7 @@
 import { buttons } from '@constants/.';
-import { SetStateAction } from '@interfaces/.';
 import { Component } from 'react';
 import { KeypadButton, KeypadContainer } from './components';
-
-type Props = {
-  onKeyClick: (payload: SetStateAction) => void;
-};
+import { Props } from './types';
 
 class KeypadClass extends Component<Props> {
   render() {

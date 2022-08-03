@@ -1,10 +1,6 @@
 import { Component } from 'react';
 import { HistoryTitle, HistoryList, HistoryButton } from './components';
-
-type Props = {
-  history: string[];
-  clearHistory: () => void;
-};
+import { Props } from './types';
 
 class HistoryClass extends Component<Props> {
   render() {
@@ -12,7 +8,9 @@ class HistoryClass extends Component<Props> {
     return (
       <>
         <HistoryTitle>History</HistoryTitle>
-        <HistoryButton onClick={clearHistory}>Clear</HistoryButton>
+        <HistoryButton data-test-id="clear-history" onClick={clearHistory}>
+          Clear
+        </HistoryButton>
         <HistoryList>
           {history.map((item, idx) => (
             <li key={item + idx}>{item}</li>

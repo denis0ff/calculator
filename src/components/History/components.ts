@@ -20,14 +20,6 @@ export const HistoryTitle = styled.h3`
 export const HistoryButton = styled.button`
   width: 100%;
   padding: 0.2em;
-  border: 1px solid ${({ theme }) => theme.config.border};
-  background: ${({ theme }) => theme.config.primary};
   border-radius: 5px;
   font-size: 0.7em;
-  color: inherit;
-  cursor: pointer;
-  &:hover {
-    border-color: ${({ theme }) => theme.config.primary};
-    background-color: ${({ theme }) => theme.config.secondary};
-  }
 `;

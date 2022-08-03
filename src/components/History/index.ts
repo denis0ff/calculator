@@ -1,3 +1,4 @@
 import HistoryClass from './HistoryClass';
+import History from './History';
 
-export default HistoryClass;
+export { HistoryClass, History };

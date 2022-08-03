@@ -6,14 +6,16 @@ import {
   openBracket,
   calculateExpression,
   resolveBrackets,
+  validateValue,
 } from '@helpers/index';
-import { CalculatorState, SetStateAction } from '@interfaces/.';
+import { CalculatorState, SetCalculatorPayload } from '@interfaces/.';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: CalculatorState = {
   displayValue: '0',
   displayExpression: '',
-  isCalculated: true,
+  isUpdatedExpression: true,
+  isCalculated: false,
   history: [],
 };
 
@@ -21,12 +23,17 @@ export const calcSlice = createSlice({
   name: 'calculator',
   initialState,
   reducers: {
-    setState(state, { payload }: PayloadAction<SetStateAction>) {
+    setCalculator(state, { payload }: PayloadAction<SetCalculatorPayload>) {
       const { type, char } = payload;
+      if (state.isCalculated) {
+        state.displayExpression = '';
+      }
+      const { displayExpression: prevExpression } = state;
       switch (type) {
         case 'digit': {
-          state.displayValue = state.isCalculated ? char : state.displayValue + char;
-          state.isCalculated = false;
+          state.displayValue = state.isUpdatedExpression
+            ? char
+            : validateValue(state.displayValue + char);
           break;
         }
         case 'operand': {
@@ -39,23 +46,19 @@ export const calcSlice = createSlice({
             state.displayExpression
           )} ${char} `;
           state.displayValue = '0';
-          state.isCalculated = true;
           break;
         }
         case 'left_bracket': {
           state.displayExpression = openBracket(state.displayExpression);
-          state.isCalculated = true;
           break;
         }
         case 'right_bracket': {
           state.displayExpression = closeBracket(state.displayExpression, state.displayValue);
           state.displayValue = '0';
-          state.isCalculated = true;
           break;
         }
         case 'dot': {
-          state.displayValue = addDotToValue(state.displayValue);
-          state.isCalculated = false;
+          state.displayValue = state.isCalculated ? '.' : addDotToValue(state.displayValue);
           break;
         }
         case 'negate': {
@@ -68,7 +71,6 @@ export const calcSlice = createSlice({
         }
         case 'clear_value': {
           state.displayValue = '0';
-          state.isCalculated = true;
           break;
         }
         case 'clear_exp': {
@@ -85,14 +87,18 @@ export const calcSlice = createSlice({
           if (result === 'Infinity') state.displayValue = 'Error. Memory overflow';
           else if (result === 'NaN') state.displayValue = 'Error. Result cannot be determined';
           else state.displayValue = result;
-          state.history.push(expression);
-          state.displayExpression = '';
-          state.isCalculated = true;
+          state.history.push(`${expression} = ${state.displayValue}`);
+          state.displayExpression = `${expression} =`;
           break;
         }
         default:
           return state;
       }
+      state.isUpdatedExpression =
+        state.displayExpression !== prevExpression ||
+        type === 'clear_value' ||
+        type === 'clear_exp';
+      state.isCalculated = type === 'result';
     },
     clearHistory(state) {
       state.history = [];
@@ -101,11 +107,11 @@ export const calcSlice = createSlice({
       state.history = [];
       state.displayValue = '0';
       state.displayExpression = '';
-      state.isCalculated = true;
+      state.isUpdatedExpression = true;
     },
   },
 });
 
-export const { setState, clearHistory, clearAll } = calcSlice.actions;
+export const { setCalculator, clearHistory, clearAll } = calcSlice.actions;
 
 export default calcSlice.reducer;
