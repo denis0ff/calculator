@@ -1,33 +1,26 @@
-import { Suspense, useState } from 'react';
+import { Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
-import { Routes as AppRoutes } from '@constants/.';
-
 import Loader from '@components/Loader';
 import Header from '@components/Header';
-import { darkTheme, lightTheme, GlobalStyles } from '@theme/.';
+import { GlobalStyles } from '@theme';
 import { ThemeProvider } from 'styled-components';
+import Settings from '@pages/Settings';
+import HomeClass from '@pages/HomeClass';
+import Home from '@pages/Home';
+import { useTypedSelector } from '@hooks';
 
 export default () => {
-  const [theme, setTheme] = useState('light');
-  const switchTheme = (theme: string) => setTheme(theme);
+  const { config: themeConfig } = useTypedSelector((state) => state.theme);
 
   return (
-    <ThemeProvider
-      theme={{
-        config: theme === 'light' ? lightTheme : darkTheme,
-        dispatch: switchTheme,
-        currentTheme: theme,
-      }}
-    >
+    <ThemeProvider theme={themeConfig}>
       <Header />
       <Suspense fallback={<Loader />}>
         <Routes>
-          <Route path="/*" element={<Navigate to={AppRoutes[0].path} replace />} />
-          {AppRoutes.map(({ path, element }) => {
-            const LazyElement = element();
-            return <Route key={path} path={path} element={<LazyElement />} />;
-          })}
+          <Route path="/*" element={<Navigate to="calculator/home-cc" replace />} />
+          <Route path="calculator/home-cc" element={<HomeClass />} />;
+          <Route path="calculator/home-fc" element={<Home />} />;
+          <Route path="calculator/settings" element={<Settings />} />;
         </Routes>
       </Suspense>
       <GlobalStyles />

@@ -7,8 +7,8 @@ import {
   calculateExpression,
   resolveBrackets,
   validateValue,
-} from '@helpers/index';
-import { CalculatorState, SetCalculatorPayload } from '@interfaces/.';
+} from '@utils';
+import { CalculatorState, SetCalculatorPayload } from '@interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: CalculatorState = {
@@ -80,6 +80,10 @@ export const calcSlice = createSlice({
           break;
         }
         case 'result': {
+          if (/error/i.test(state.displayValue)) {
+            state.displayValue = '0';
+            break;
+          }
           const expression = state.displayExpression
             ? resolveBrackets(`${state.displayExpression}${state.displayValue}`)
             : resolveBrackets(`${state.displayValue} + ${state.displayValue}`);

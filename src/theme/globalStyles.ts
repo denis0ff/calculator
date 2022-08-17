@@ -1,24 +1,24 @@
 import { createGlobalStyle } from 'styled-components';
 
-type ThemeParams = { theme: { config: { [x: string]: string } } };
+type ThemeParams = { theme: { [x: string]: string } };
 
 export default createGlobalStyle<ThemeParams>`
   * {
-    margin: 0;
-    padding: 0;
+    margin: ${({ theme }) => theme.spaces[0]};
+    padding: ${({ theme }) => theme.spaces[0]};
     box-sizing: border-box;
-    font-family: ${({ theme }) => theme.config.font};
-    transition: 100ms;
+    font-family: ${({ theme }) => theme.font};
+    transition: ${({ theme }) => theme.defaultTransition};
     &::-webkit-scrollbar {
-      width: 5px;
+      width: ${({ theme }) => theme.webkitScrollBarWidth};
     }
 
     &::-webkit-scrollbar-track {
-      background: ${({ theme }) => theme.config.secondary};
+      background: ${({ theme }) => theme.secondary};
     }
 
     &::-webkit-scrollbar-thumb {
-      background: ${({ theme }) => theme.config.primary};
+      background: ${({ theme }) => theme.primary};
     }
   }
 
@@ -45,13 +45,13 @@ export default createGlobalStyle<ThemeParams>`
   }
 
   button {
-    border: 1px solid ${({ theme }) => theme.config.border};
-    background: ${({ theme }) => theme.config.primary};
+    border: ${({ theme }) => theme.defaultBorder};
+    background: ${({ theme }) => theme.primary};
     color: inherit;
     cursor: pointer;
       &:hover {
-      border-color: ${({ theme }) => theme.config.primary};
-      background-color: ${({ theme }) => theme.config.secondary};
+      border-color: ${({ theme }) => theme.primary};
+      background-color: ${({ theme }) => theme.secondary};
     }
   }
 
@@ -64,7 +64,7 @@ export default createGlobalStyle<ThemeParams>`
   #root {
     display: flex;
     flex-direction: column;
-    background: ${({ theme }) => theme.config.body};
-    color: ${({ theme }) => theme.config.fontColor};
+    background: ${({ theme }) => theme.body};
+    color: ${({ theme }) => theme.fontColor};
   }
 `;

@@ -19,9 +19,3 @@ export interface HomeClassProps extends CalculatorState {
 export type ClassComponentState = {
   calculator: CalculatorState;
 };
-
-export type ThemeContextType = {
-  theme: { [x: string]: string };
-  currentTheme: string;
-  dispatch: (theme: string) => void;
-};
